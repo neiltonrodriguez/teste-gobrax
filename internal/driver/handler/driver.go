@@ -6,6 +6,7 @@ import (
 	Model "teste-gobrax/internal/driver/model"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/rs/zerolog/log"
 )
 
 func Get(fiberCtx *fiber.Ctx) error {
@@ -14,8 +15,12 @@ func Get(fiberCtx *fiber.Ctx) error {
 
 	result, err := Model.Get(ctx)
 	if err != nil {
+		log.Error().Msg("Error in GetAll of drivers: " + err.Error())
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
+
+	log.Info().Msg("GetAll of drivers successfully")
+
 	return fiberCtx.Status(fiber.StatusOK).JSON(domain.Response{
 		Meta: domain.Meta{
 			Count: len(result),
@@ -30,11 +35,14 @@ func GetById(fiberCtx *fiber.Ctx) error {
 
 	result, err := Model.GetById(ctx, id)
 	if err != nil {
-		if err.Error() == "user not found" {
+		if err.Error() == "driver not found" {
+			log.Error().Msg("Error in GetByID of drivers: " + err.Error())
 			return fiber.NewError(fiber.StatusNotFound, err.Error())
 		}
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
+
+	log.Info().Msg("GetById of drivers successfully")
 
 	return fiberCtx.Status(fiber.StatusOK).JSON(domain.Response{
 		Meta: domain.Meta{
@@ -49,8 +57,11 @@ func Create(fiberCtx *fiber.Ctx) error {
 	ctx := fiberCtx.Context()
 
 	if err := fiberCtx.BodyParser(&payload); err != nil {
+		log.Error().Msg("error in parse payload of drivers: " + err.Error())
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
+
+	log.Info().Msg("Create of drivers successfully")
 
 	result, err := Model.Create(ctx, payload)
 	if err != nil {
@@ -70,14 +81,18 @@ func Update(fiberCtx *fiber.Ctx) error {
 	ctx := fiberCtx.Context()
 
 	if err := fiberCtx.BodyParser(&payload); err != nil {
+		log.Error().Msg("Parse error in update of drivers: " + err.Error())
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
 
 	id, _ := strconv.Atoi(fiberCtx.Params("id"))
 	err := Model.Update(ctx, id, payload)
 	if err != nil {
+		log.Error().Msg("Error in update of drivers: " + err.Error())
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
+
+	log.Info().Msg("Update of drivers successfully")
 
 	return fiberCtx.Status(fiber.StatusOK).JSON(domain.Response{
 		Meta: domain.Meta{
@@ -94,8 +109,11 @@ func Delete(fiberCtx *fiber.Ctx) error {
 
 	err := Model.Delete(ctx, id)
 	if err != nil {
+		log.Error().Msg("Error in delete of drivers: " + err.Error())
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
+
+	log.Info().Msg("Delete of drivers successfully")
 
 	return fiberCtx.Status(fiber.StatusOK).JSON(domain.Response{
 		Meta: domain.Meta{

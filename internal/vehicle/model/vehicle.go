@@ -13,7 +13,7 @@ import (
 var Db *sql.DB
 
 var (
-	errUserNotFound = errors.New("user not found")
+	errVehicleNotFound = errors.New("vehicle not found")
 )
 
 func Get(ctx context.Context) ([]domain.Vehicle, error) {
@@ -138,7 +138,7 @@ func GetById(ctx context.Context, id int) (domain.Vehicle, error) {
 
 	rowExist := rows.Next()
 	if !rowExist {
-		return domain.Vehicle{}, errUserNotFound
+		return domain.Vehicle{}, errVehicleNotFound
 	}
 	var user domain.Vehicle
 	err = rows.Scan(

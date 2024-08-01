@@ -13,7 +13,7 @@ import (
 var Db *sql.DB
 
 var (
-	errDriverNotFound = errors.New("user not found")
+	errDriverNotFound = errors.New("driver not found")
 )
 
 func Get(ctx context.Context) ([]domain.Driver, error) {
