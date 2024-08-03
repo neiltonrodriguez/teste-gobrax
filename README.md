@@ -33,7 +33,7 @@ o docker se encarregará de instalar todas as dependências do projeto, incluind
 # execute o script sql que está dentro de ./docs/model.sql para criar as tabelas
 ```
 
-#### se tiver workbech acesse o banco depois de executar o docker com esses dados:
+#### se tiver workbench acesse o banco depois de executar o docker com esses dados:
 ```
 Host: 127.0.0.1:3307
 User: user
@@ -44,11 +44,10 @@ Database: teste_gobrax
 ```
 ### Regra de negócio
 ```
-Não ficou explícito no teste qual era o relacionamento entre motorista e veíclo, considerei que seja 1:1
+Não ficou explícito no teste qual era o relacionamento entre motorista e veículo, considerei que seja 1:1
 portanto, um motorista só pode ser vinculado a um veículo e vice-versa.
 
-o cadastro do veículo pode ser feito informando já o id do motorista, que pode ser listado no get da rota 'v1/driver/'
-todos os endpoints de getAll
+o cadastro do veículo pode ser feito informando o id do motorista, que pode ser listado no getAll da rota 'v1/driver/'
 ```
 
 ##  Rotas e Modelo de requisição:
@@ -77,7 +76,7 @@ curl --request POST \
 
 
 GetAll:
-essa rota é get de todos os veículos, tbm tem paginação e tem filtro porplaca e marca.
+essa rota é get de todos os veículos, também tem paginação e tem filtro por placa e marca.
 
 ```
 curl --request GET \
