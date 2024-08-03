@@ -1,4 +1,4 @@
-version: '4'
+version: '3.9'
 services:
   app:
     container_name: teste-gobrax
@@ -25,9 +25,9 @@ services:
     networks:
       - gobrax-network
     ports:
-      - '3306:3306'
+      - '3307:3306'
     environment:
-      MYSQL_DATABASE: gobrax
+      MYSQL_DATABASE: teste_gobrax
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: user
       MYSQL_PASSWORD: password

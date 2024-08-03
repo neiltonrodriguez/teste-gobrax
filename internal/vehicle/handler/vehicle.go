@@ -10,7 +10,7 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-func Get(fiberCtx *fiber.Ctx) error {
+func GetAll(fiberCtx *fiber.Ctx) error {
 
 	ctx := fiberCtx.Context()
 	filter := map[string]string{
@@ -22,7 +22,7 @@ func Get(fiberCtx *fiber.Ctx) error {
 	limit, _ := strconv.Atoi(fiberCtx.Query("limit", "0"))
 	pg := domain.NewPagination(page, limit)
 
-	vehicles, err := Model.Get(ctx, filter, pg)
+	vehicles, err := Model.GetAll(ctx, filter, pg)
 	if err != nil {
 		log.Error().Msg("Error in GetAll of vehicle: " + err.Error())
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())

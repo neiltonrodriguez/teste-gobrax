@@ -18,7 +18,7 @@ func RegisterRoutes(
 	})
 
 	route.Get("/", func(fiberCtx *fiber.Ctx) error {
-		return handler.Get(fiberCtx)
+		return handler.GetAll(fiberCtx)
 	})
 
 	route.Get("/:id", func(fiberCtx *fiber.Ctx) error {

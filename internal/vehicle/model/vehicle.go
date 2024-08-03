@@ -16,7 +16,7 @@ var (
 	errVehicleNotFound = errors.New("vehicle not found")
 )
 
-func Get(ctx context.Context, filter map[string]string, pg domain.Pagination) ([]domain.Vehicle, error) {
+func GetAll(ctx context.Context, filter map[string]string, pg domain.Pagination) ([]domain.Vehicle, error) {
 	var err error
 	Db, err = database.ConnectToDB()
 	if err != nil {

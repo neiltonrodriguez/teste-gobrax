@@ -17,7 +17,7 @@ var (
 	errDriverNotFound = errors.New("driver not found")
 )
 
-func Get(ctx context.Context, filter map[string]string, pg domain.Pagination) ([]domain.Driver, error) {
+func GetAll(ctx context.Context, filter map[string]string, pg domain.Pagination) ([]domain.Driver, error) {
 	var err error
 	Db, err = database.ConnectToDB()
 	if err != nil {
