@@ -59,6 +59,7 @@ func GetById(fiberCtx *fiber.Ctx) error {
 			log.Error().Msg("Error in GetByID of drivers: " + err.Error())
 			return fiber.NewError(fiber.StatusNotFound, err.Error())
 		}
+		log.Error().Msg("Error in GetByID of drivers: " + err.Error())
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
 
@@ -92,6 +93,7 @@ func Create(fiberCtx *fiber.Ctx) error {
 
 	result, err := Model.Create(ctx, driveInput)
 	if err != nil {
+		log.Error().Msg("error in create driver: " + err.Error())
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
 

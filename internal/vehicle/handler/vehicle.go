@@ -69,9 +69,10 @@ func GetById(fiberCtx *fiber.Ctx) error {
 	vehicle, err := Model.GetById(ctx, id)
 	if err != nil {
 		if err.Error() == "vehicle not found" {
-			log.Error().Msg("Error in GetByID of vehicle: " + err.Error())
+			log.Error().Msg("GetByID of vehicle failed: " + err.Error())
 			return fiber.NewError(fiber.StatusNotFound, err.Error())
 		}
+		log.Error().Msg("Error in GetByID of vehicle: " + err.Error())
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
 
@@ -79,7 +80,7 @@ func GetById(fiberCtx *fiber.Ctx) error {
 	if vehicle.DriverId != 0 {
 		driver, err := DriverModel.GetById(ctx, vehicle.DriverId)
 		if err != nil {
-			log.Error().Msg("Error in GetAll of vehicle: " + err.Error())
+			log.Error().Msg("Error in GetByID of vehicle: " + err.Error())
 			return fiber.NewError(fiber.StatusBadRequest, err.Error())
 		}
 		vehicleDTO = domain.ConvertToVehicleDTO(vehicle, &driver)
@@ -135,6 +136,7 @@ func Create(fiberCtx *fiber.Ctx) error {
 	if result.DriverId != 0 {
 		driver, err := DriverModel.GetById(ctx, result.DriverId)
 		if err != nil {
+			log.Error().Msg("error in getByID of driver: " + err.Error())
 			return fiber.NewError(fiber.StatusBadRequest, err.Error())
 		}
 		vehicle = domain.ConvertToVehicleDTO(result, &driver)
